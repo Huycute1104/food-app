@@ -1,4 +1,6 @@
 package com.example.food.serviceImplement;
 
-public class UserServiceImplement {
+import com.example.food.service.UserService;
+
+public class UserServiceImplement implements UserService {
 }
