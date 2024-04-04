@@ -1,6 +1,8 @@
 package com.example.food.auth;
 
 import com.example.food.config.JwtService;
+import com.example.food.dto.Request.UserRequest.CreateUserRequest;
+import com.example.food.enums.Role;
 import com.example.food.enums.TokenType;
 import com.example.food.model.Token;
 import com.example.food.model.User;
@@ -17,6 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +30,54 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final TokeRepo tokeRepo;
+
+    public AuthenticationResponse createUser(CreateUserRequest request) {
+        String email = request.getEmail();
+        if(!isValidEmail(email)){
+            return AuthenticationResponse.builder()
+                    .status("Invalid email format.")
+                    .accessToken(null)
+                    .refreshToken(null)
+                    .build();
+        }
+        if (!isValidPassword(request.getPassword())) {
+            return AuthenticationResponse.builder()
+                    .status("The password must be at least 6 characters long and should not contain any special characters.")
+                    .accessToken(null)
+                    .refreshToken(null)
+                    .build();
+        }
+        var user = User.builder()
+                .email(request.getEmail())
+                .accountName(request.getName())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .phone(request.getPhone())
+                .userStatus(true)
+                .role(Role.CUSTOMER)
+                .build();
+        var save = userRepo.save(user);
+        var jwtToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+        saveUserToken(save, jwtToken);
+        return AuthenticationResponse.builder()
+                .status("You have successfully registered.")
+                .accessToken(jwtToken)
+                .refreshToken(refreshToken)
+                .userInfo(user)
+                .build();
+    }
+
+    private boolean isValidPassword(String password) {
+        //Check validate password
+        return password != null && password.length() >= 6 && !password.matches(".*[^a-zA-Z0-9].*");
+    }
+    private boolean isValidEmail(String email) {
+        // check valid email
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
@@ -77,11 +129,11 @@ public class AuthenticationService {
                 )
         );
         var user = userRepo.findByEmail(request.getEmail()).orElseThrow();
-        if(!user.isUserStatus()){
+        if (!user.isUserStatus()) {
             return AuthenticationResponse.builder()
                     .status("User is ban")
                     .build();
-        }else{
+        } else {
             var jwtToken = jwtService.generateToken(user);
             var refreshToken = jwtService.generateRefreshToken(user);
             revokeAllUserTokens(user);
@@ -104,14 +156,14 @@ public class AuthenticationService {
         final String refreshToken;
         final String jwt;
         final String userEmail;
-        if (authHeader == null || !authHeader.startsWith("Bearer ")){
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return;
         }
-        refreshToken =authHeader.substring(7);
+        refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUsername(refreshToken);// todo extract the userEmail from JWT Token
-        if(userEmail!= null ){
+        if (userEmail != null) {
             var user = this.userRepo.findUserByEmail(userEmail).orElseThrow();
-            if(jwtService.isTokenValid(refreshToken,user)){
+            if (jwtService.isTokenValid(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);
                 revokeAllUserTokens(user);
                 saveUserToken(user, accessToken);
@@ -119,7 +171,7 @@ public class AuthenticationService {
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)
                         .build();
-                new ObjectMapper().writeValue(response.getOutputStream(),authResponse);
+                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
         }
     }

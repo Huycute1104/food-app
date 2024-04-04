@@ -29,7 +29,7 @@ public class User implements UserDetails {
     @Column(name = "AccountName", length = 20)
     private String accountName;
 
-    @Column(name = "Email", length = 50)
+    @Column(name = "Email", length = 50,unique = true)
     private String email;
 
     @Column(name = "Password", length = 100)

@@ -3,7 +3,9 @@ package com.example.food.cotroller;
 import com.example.food.auth.AuthenticationRequest;
 import com.example.food.auth.AuthenticationResponse;
 import com.example.food.auth.AuthenticationService;
+import com.example.food.auth.RegisterRequest;
 import com.example.food.config.LogoutService;
+import com.example.food.dto.Request.UserRequest.CreateUserRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,10 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest authenticationRequest) {
         return ResponseEntity.ok(authenticationService.login(authenticationRequest));
+    }
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody CreateUserRequest request) {
+        return ResponseEntity.ok(authenticationService.createUser(request));
     }
     @PostMapping("/refresh-token")
     public void refreshToken(
