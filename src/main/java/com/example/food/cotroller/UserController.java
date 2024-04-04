@@ -3,6 +3,7 @@ package com.example.food.cotroller;
 import com.example.food.dto.Request.UserRequest.UpdatePasswordRequest;
 import com.example.food.dto.Request.UserRequest.UpdateUserRequest;
 import com.example.food.dto.Response.UserResponse.UserResponse;
+import com.example.food.model.User;
 import com.example.food.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
@@ -18,6 +21,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("")
+//    @PreAuthorize("hasAuthority('admin:read')")
+    public List<User> getAllUsers() {
+        return userService.getALL();
+    }
 
     @PutMapping("/banUser/{id}")
 //    @PreAuthorize("hasAuthority('admin:update')")

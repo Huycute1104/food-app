@@ -3,11 +3,15 @@ package com.example.food.serviceImplement;
 import com.example.food.dto.Request.UserRequest.UpdatePasswordRequest;
 import com.example.food.dto.Request.UserRequest.UpdateUserRequest;
 import com.example.food.dto.Response.UserResponse.UserResponse;
+import com.example.food.model.User;
 import com.example.food.repository.UserRepo;
 import com.example.food.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImplement implements UserService {
@@ -16,6 +20,11 @@ public class UserServiceImplement implements UserService {
     private UserRepo userRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Override
+    public List<User> getALL() {
+        return userRepo.findAll();
+    }
 
     @Override
     public UserResponse banUser(int userId) {
@@ -94,14 +103,14 @@ public class UserServiceImplement implements UserService {
         var existedUser = userRepo.findUserByUsersID(userId).orElse(null);
         if (existedUser != null) {
             if (isValidPassword(password)) {
-                if(password.equals(confirmPassword)){
+                if (password.equals(confirmPassword)) {
                     existedUser.setPassword(passwordEncoder.encode(password));
                     userRepo.save(existedUser);
                     return UserResponse.builder()
                             .status("Password updated successfully")
                             .user(existedUser)
                             .build();
-                }else {
+                } else {
                     return UserResponse.builder()
                             .status("Passwords do not match")
                             .user(null)
@@ -123,4 +132,6 @@ public class UserServiceImplement implements UserService {
         }
 
     }
+
+
 }
