@@ -16,4 +16,5 @@ public interface UserService {
     public UserResponse updatePassword(int userId, UpdatePasswordRequest request );
     public List<User> getALL();
     public List<User> getCustomer();
+    public List<User> getStaff();
 }

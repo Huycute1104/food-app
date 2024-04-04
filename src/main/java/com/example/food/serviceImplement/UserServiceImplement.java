@@ -36,6 +36,14 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
+    public List<User> getStaff() {
+        List<User> allUsers = userRepo.findAll();
+        return allUsers.stream()
+                .filter(user -> user.getRole() == Role.STAFF )
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public UserResponse banUser(int userId) {
         //find user by userid
         var banUser = userRepo.findUserByUsersID(userId).orElse(null);
