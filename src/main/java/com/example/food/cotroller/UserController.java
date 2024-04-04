@@ -30,4 +30,15 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
+
+    @PutMapping("/unbanUser/{id}")
+//    @PreAuthorize("hasAuthority('admin:update')")
+    public ResponseEntity<UserResponse> unbanUserByID(@PathVariable int id) {
+        UserResponse response = userService.unbanUser(id);
+        if (response.getUser() != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
 }

@@ -31,4 +31,24 @@ public class UserServiceImplement implements UserService {
 
         }
     }
+
+    @Override
+    public UserResponse unbanUser(int userId) {
+        //find user by userid
+        var unBanUser = userRepo.findUserByUsersID(userId).orElse(null);
+        if (unBanUser != null) {
+            unBanUser.setUserStatus(true);
+            userRepo.save(unBanUser);
+            return UserResponse.builder()
+                    .status("UnBan User Successful")
+                    .user(unBanUser)
+                    .build();
+        } else {
+            return UserResponse.builder()
+                    .status("User Not Found")
+                    .user(null)
+                    .build();
+
+        }
+    }
 }

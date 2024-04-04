@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserService {
     public UserResponse banUser(int userId);
+    public UserResponse unbanUser(int userId);
 }
