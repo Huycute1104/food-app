@@ -27,6 +27,11 @@ public class UserController {
     public List<User> getAllUsers() {
         return userService.getALL();
     }
+    @GetMapping("/getCustomer")
+//    @PreAuthorize("hasAuthority('admin:read')")
+    public List<User> getCustomer() {
+        return userService.getCustomer();
+    }
 
     @PutMapping("/banUser/{id}")
 //    @PreAuthorize("hasAuthority('admin:update')")

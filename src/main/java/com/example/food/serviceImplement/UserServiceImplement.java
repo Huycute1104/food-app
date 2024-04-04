@@ -3,6 +3,7 @@ package com.example.food.serviceImplement;
 import com.example.food.dto.Request.UserRequest.UpdatePasswordRequest;
 import com.example.food.dto.Request.UserRequest.UpdateUserRequest;
 import com.example.food.dto.Response.UserResponse.UserResponse;
+import com.example.food.enums.Role;
 import com.example.food.model.User;
 import com.example.food.repository.UserRepo;
 import com.example.food.service.UserService;
@@ -24,6 +25,14 @@ public class UserServiceImplement implements UserService {
     @Override
     public List<User> getALL() {
         return userRepo.findAll();
+    }
+
+    @Override
+    public List<User> getCustomer() {
+        List<User> allUsers = userRepo.findAll();
+        return allUsers.stream()
+                .filter(user -> user.getRole() == Role.CUSTOMER )
+                .collect(Collectors.toList());
     }
 
     @Override
