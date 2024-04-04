@@ -1,10 +1,12 @@
 package com.example.food.serviceImplement;
 
+import com.example.food.dto.Request.UserRequest.UpdatePasswordRequest;
 import com.example.food.dto.Request.UserRequest.UpdateUserRequest;
 import com.example.food.dto.Response.UserResponse.UserResponse;
 import com.example.food.repository.UserRepo;
 import com.example.food.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +14,9 @@ public class UserServiceImplement implements UserService {
 
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserResponse banUser(int userId) {
         //find user by userid
@@ -75,5 +80,47 @@ public class UserServiceImplement implements UserService {
                     .build();
 
         }
+    }
+
+    private boolean isValidPassword(String password) {
+        //Check validate password
+        return password != null && password.length() >= 6 && !password.matches(".*[^a-zA-Z0-9].*");
+    }
+
+    @Override
+    public UserResponse updatePassword(int userId, UpdatePasswordRequest request) {
+        String password = request.getPassword();
+        String confirmPassword = request.getConfirmPassword();
+        var existedUser = userRepo.findUserByUsersID(userId).orElse(null);
+        if (existedUser != null) {
+            if (isValidPassword(password)) {
+                if(password.equals(confirmPassword)){
+                    existedUser.setPassword(passwordEncoder.encode(password));
+                    userRepo.save(existedUser);
+                    return UserResponse.builder()
+                            .status("Password updated successfully")
+                            .user(existedUser)
+                            .build();
+                }else {
+                    return UserResponse.builder()
+                            .status("Passwords do not match")
+                            .user(null)
+                            .build();
+                }
+
+            } else {
+                return UserResponse.builder()
+                        .status("The password must be at least 6 characters long and should not contain any special characters.")
+                        .user(null)
+                        .build();
+            }
+        } else {
+            return UserResponse.builder()
+                    .status("User Not Found")
+                    .user(null)
+                    .build();
+
+        }
+
     }
 }

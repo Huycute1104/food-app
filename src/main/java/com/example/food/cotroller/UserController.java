@@ -1,5 +1,6 @@
 package com.example.food.cotroller;
 
+import com.example.food.dto.Request.UserRequest.UpdatePasswordRequest;
 import com.example.food.dto.Request.UserRequest.UpdateUserRequest;
 import com.example.food.dto.Response.UserResponse.UserResponse;
 import com.example.food.service.UserService;
@@ -46,5 +47,13 @@ public class UserController {
             @PathVariable int userId,
             @RequestBody UpdateUserRequest updateUserRequest) {
         return ResponseEntity.ok(userService.updateUser(userId, updateUserRequest));
+    }
+
+    @PutMapping("/changePassword/{userId}")
+//    @PreAuthorize("hasAuthority('customer:update')")
+    public ResponseEntity<UserResponse> changePassword(
+            @PathVariable int userId,
+            @RequestBody UpdatePasswordRequest request) {
+        return ResponseEntity.ok(userService.updatePassword(userId, request));
     }
 }
