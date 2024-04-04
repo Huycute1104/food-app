@@ -48,7 +48,7 @@ public class FoodApplication {
 					.phone("0854512367")
 					.role(STAFF)
 					.build();
-			System.out.println("Creator token :" + service.register(staff).getAccessToken());
+			System.out.println("Staff token :" + service.register(staff).getAccessToken());
 
 			//Customer
 			var customer = RegisterRequest.builder()
