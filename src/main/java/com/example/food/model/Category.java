@@ -18,6 +18,6 @@ public class Category {
     @Column(name = "CategoryID")
     private int categoryId;
 
-    @Column(name = "CategoryName", unique = true, nullable = false)
+    @Column(name = "CategoryName", unique = true, nullable = false , length = 20)
     private String categoryName;
 }
