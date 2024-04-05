@@ -8,11 +8,18 @@ import com.example.food.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryServiceImplement implements CategoryService {
     @Autowired
     private CategoryRepo categoryRepo;
 
+
+    @Override
+    public List<Category> getAllCategory() {
+        return categoryRepo.findAll();
+    }
     @Override
     public CategoryResponse createCategory(CreateCategoryRequest request) {
         //get category name
@@ -76,4 +83,6 @@ public class CategoryServiceImplement implements CategoryService {
                     .build();
         }
     }
+
+
 }
