@@ -106,6 +106,23 @@ public class FoodServiceImplement implements FoodService {
 
     }
 
+    @Override
+    public FoodResponse deleteFood(int foodId) {
+        var food = foodRepo.findFoodByFoodID(foodId).orElse(null);
+        if (food == null) {
+            return FoodResponse.builder()
+                    .status("Food not found")
+                    .food(null)
+                    .build();
+        }else{
+            foodRepo.delete(food);
+            return FoodResponse.builder()
+                    .status("Food deleted successfully")
+                    .food(null)
+                    .build();
+        }
+    }
+
     public String uploadImageToCloudinary(MultipartFile file) {
         try {
             // Upload image to Cloudinary

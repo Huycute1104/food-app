@@ -59,4 +59,10 @@ public class FoodController {
         FoodResponse response = foodService.updateFood(id,food,file);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<FoodResponse> deleteFood(@PathVariable int id) {
+        FoodResponse response = foodService.deleteFood(id);
+        return ResponseEntity.ok(response);
+    }
 }

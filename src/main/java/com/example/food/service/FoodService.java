@@ -8,4 +8,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FoodService {
     public FoodResponse createFood(CreateFoodRequest request, MultipartFile file);
     public FoodResponse updateFood(int foodId,UpdateFoodRequest request, MultipartFile file);
+    public FoodResponse deleteFood(int foodId);
 }
