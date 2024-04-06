@@ -1,5 +1,7 @@
 package com.example.food;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.example.food.auth.AuthenticationService;
 import com.example.food.auth.RegisterRequest;
 import com.example.food.enums.Role;
@@ -23,6 +25,14 @@ public class FoodApplication {
 		return new BCryptPasswordEncoder();
 	}
 
+	@Bean
+	public Cloudinary cloudinary() {
+		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+				"cloud_name", "dpxs39hkb",
+				"api_key", "679575712278322",
+				"api_secret", "KJfkzpiXRnmkPCeRwH6TUAmFGks"));
+		return cloudinary;
+	}
 	@Bean
 	public CommandLineRunner commandLineRunner(
 			AuthenticationService service

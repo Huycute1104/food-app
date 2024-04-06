@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -23,15 +24,17 @@ public class Food {
     @Column(name = "FoodName", length = 20,unique = true)
     private String foodName;
 
-    @Column(name = "Description", length = 500)
+     @Column(name = "FoodImage", length = Integer.MAX_VALUE)
+        private String foodImage;
+
+     @Column(name = "Description", length = 500)
     private String description;
 
-    @Column(name = "ListPrice", nullable = false)
-    private double listPrice;
+    @Column(name = "Price", nullable = false)
+    private double price;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DateAdded")
-    private Date dateAdded;
+    @Column(name = "DateAt")
+    private LocalDateTime dateAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CategoryID")
