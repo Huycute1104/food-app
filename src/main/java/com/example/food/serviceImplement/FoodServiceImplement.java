@@ -3,6 +3,7 @@ package com.example.food.serviceImplement;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.food.dto.Request.FoodRequest.CreateFoodRequest;
+import com.example.food.dto.Request.FoodRequest.UpdateFoodRequest;
 import com.example.food.dto.Response.FoodResponse.FoodResponse;
 import com.example.food.model.Food;
 import com.example.food.repository.CategoryRepo;
@@ -57,12 +58,50 @@ public class FoodServiceImplement implements FoodService {
                         .status("Create Food Successfully")
                         .food(food1)
                         .build();
-            }else {
+            } else {
                 return FoodResponse.builder()
                         .status("Food already exists")
                         .food(null)
                         .build();
             }
+        }
+
+    }
+
+    @Override
+    public FoodResponse updateFood(int foodId, UpdateFoodRequest request, MultipartFile file) {
+        int category = request.getCategory();
+        //check category exits or not
+        var cate = categoryRepo.findCategoriesByCategoryId(category).orElse(null);
+        if (cate == null) {
+            return FoodResponse.builder()
+                    .status("Category not found")
+                    .food(null)
+                    .build();
+        }
+        // check food exist or not by id
+        var food = foodRepo.findFoodByFoodID(foodId).orElse(null);
+        if (food != null) {
+            String name = request.getFoodName();
+            String description = request.getDescription();
+            double price = request.getPrice();
+            String foodImage = uploadImageToCloudinary(file);
+            food.setFoodName(name);
+            food.setFoodImage(foodImage);
+            food.setCategory(cate);
+            food.setPrice(price);
+            food.setDescription(description);
+            foodRepo.save(food);
+            return FoodResponse.builder()
+                    .status("Update Food Successfully")
+                    .food(food)
+                    .build();
+
+        } else {
+            return FoodResponse.builder()
+                    .status("Food not found")
+                    .food(null)
+                    .build();
         }
 
     }
