@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class FoodServiceImplement implements FoodService {
@@ -30,6 +31,11 @@ public class FoodServiceImplement implements FoodService {
     @Override
     public List<Food> getAll() {
         return foodRepo.findAll();
+    }
+
+    @Override
+    public Optional<Food> getFoodByID(int id) {
+        return foodRepo.findFoodByFoodID(id);
     }
 
     @Override

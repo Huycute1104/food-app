@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/food")
@@ -31,6 +32,11 @@ public class FoodController {
 //    @PreAuthorize("hasAuthority('admin:read')")
     public List<Food> getAllUsers() {
         return foodService.getAll();
+    }
+    @GetMapping("{id}")
+//    @PreAuthorize("hasAuthority('admin:read')")
+    public Optional<Food> getUserById(@PathVariable int id) {
+        return foodService.getFoodByID(id);
     }
     @PostMapping("")
     //    @PreAuthorize("hasAuthority('admin:create')")
