@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImplement implements CategoryService {
@@ -20,6 +21,12 @@ public class CategoryServiceImplement implements CategoryService {
     public List<Category> getAllCategory() {
         return categoryRepo.findAll();
     }
+
+    @Override
+    public Optional<Category> getCategoryByID(int id) {
+        return categoryRepo.findCategoriesByCategoryId(id);
+    }
+
     @Override
     public CategoryResponse createCategory(CreateCategoryRequest request) {
         //get category name
