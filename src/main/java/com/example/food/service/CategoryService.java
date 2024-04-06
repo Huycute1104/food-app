@@ -14,4 +14,5 @@ public interface CategoryService {
     public List<Category> getAllCategory();
 
     public Optional<Category> getCategoryByID(int id);
+    public CategoryResponse deleteCategory(int id);
 }

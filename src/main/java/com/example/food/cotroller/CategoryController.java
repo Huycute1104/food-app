@@ -5,6 +5,7 @@ import com.example.food.auth.AuthenticationResponse;
 import com.example.food.dto.Request.CategoryRequest.CreateCategoryRequest;
 import com.example.food.dto.Request.UserRequest.UpdateUserRequest;
 import com.example.food.dto.Response.CategoryResponse.CategoryResponse;
+import com.example.food.dto.Response.FoodResponse.FoodResponse;
 import com.example.food.dto.Response.UserResponse.UserResponse;
 import com.example.food.model.Category;
 import com.example.food.model.User;
@@ -51,4 +52,9 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.updateCategory(request,id));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CategoryResponse> deleteFood(@PathVariable int id) {
+        CategoryResponse response = categoryService.deleteCategory(id);
+        return ResponseEntity.ok(response);
+    }
 }

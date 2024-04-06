@@ -2,6 +2,7 @@ package com.example.food.serviceImplement;
 
 import com.example.food.dto.Request.CategoryRequest.CreateCategoryRequest;
 import com.example.food.dto.Response.CategoryResponse.CategoryResponse;
+import com.example.food.dto.Response.FoodResponse.FoodResponse;
 import com.example.food.model.Category;
 import com.example.food.repository.CategoryRepo;
 import com.example.food.service.CategoryService;
@@ -25,6 +26,23 @@ public class CategoryServiceImplement implements CategoryService {
     @Override
     public Optional<Category> getCategoryByID(int id) {
         return categoryRepo.findCategoriesByCategoryId(id);
+    }
+
+    @Override
+    public CategoryResponse deleteCategory(int id) {
+        var food = categoryRepo.findCategoriesByCategoryId(id).orElse(null);
+        if (food == null) {
+            return CategoryResponse.builder()
+                    .status("Food not found")
+                    .category(null)
+                    .build();
+        }else{
+            categoryRepo.delete(food);
+            return CategoryResponse.builder()
+                    .status("Food deleted successfully")
+                    .category(null)
+                    .build();
+        }
     }
 
     @Override
