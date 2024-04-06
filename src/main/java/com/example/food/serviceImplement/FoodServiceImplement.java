@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -25,6 +26,11 @@ public class FoodServiceImplement implements FoodService {
     private Cloudinary cloudinary;
     @Autowired
     private CategoryRepo categoryRepo;
+
+    @Override
+    public List<Food> getAll() {
+        return foodRepo.findAll();
+    }
 
     @Override
     public FoodResponse createFood(CreateFoodRequest request, MultipartFile file) {

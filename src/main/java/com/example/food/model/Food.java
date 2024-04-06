@@ -36,7 +36,8 @@ public class Food {
     @Column(name = "DateAt")
     private LocalDateTime dateAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "CategoryID")
     private Category category;
 
