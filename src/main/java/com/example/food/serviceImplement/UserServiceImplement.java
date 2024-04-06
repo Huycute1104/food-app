@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,6 +42,11 @@ public class UserServiceImplement implements UserService {
         return allUsers.stream()
                 .filter(user -> user.getRole() == Role.STAFF )
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<User> getUserById(int id) {
+        return userRepo.findUserByUsersID(id);
     }
 
     @Override

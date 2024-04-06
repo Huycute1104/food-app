@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -26,6 +27,12 @@ public class UserController {
 //    @PreAuthorize("hasAuthority('admin:read')")
     public List<User> getAllUsers() {
         return userService.getALL();
+    }
+
+    @GetMapping("{id}")
+//    @PreAuthorize("hasAuthority('admin:read')")
+    public Optional<User> getUserById(@PathVariable int id) {
+        return userService.getUserById(id);
     }
     @GetMapping("/getCustomer")
 //    @PreAuthorize("hasAuthority('admin:read')")

@@ -7,6 +7,7 @@ import com.example.food.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface UserService {
@@ -17,4 +18,5 @@ public interface UserService {
     public List<User> getALL();
     public List<User> getCustomer();
     public List<User> getStaff();
+    public Optional<User> getUserById(int id);
 }
