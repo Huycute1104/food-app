@@ -26,4 +26,8 @@ public class Cart {
     @ManyToOne
     @JoinColumn(name = "FoodID")
     private Food food;
+
+    @Column(name = "Quantity", nullable = false)
+    private int quantity;
+
 }
