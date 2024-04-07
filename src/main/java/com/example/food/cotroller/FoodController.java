@@ -45,12 +45,14 @@ public class FoodController {
             @RequestParam("description") String description,
             @RequestParam("price") double price,
             @RequestParam("category") int category,
+            @RequestParam("quantity") int quantity,
             @RequestParam("file") MultipartFile file) {
         CreateFoodRequest food = CreateFoodRequest.builder()
                 .foodName(foodName)
                 .description(description)
                 .price(price)
                 .category(category)
+                .quantity(quantity)
                 .build();
         FoodResponse response = foodService.createFood(food,file);
         return ResponseEntity.ok(response);
@@ -64,12 +66,14 @@ public class FoodController {
             @RequestParam("description") String description,
             @RequestParam("price") double price,
             @RequestParam("category") int category,
+            @RequestParam("quantity") int quantity,
             @RequestParam("file") MultipartFile file) {
         UpdateFoodRequest food = UpdateFoodRequest.builder()
                 .foodName(foodName)
                 .description(description)
                 .price(price)
                 .category(category)
+                .quantity(quantity)
                 .build();
         FoodResponse response = foodService.updateFood(id,food,file);
         return ResponseEntity.ok(response);

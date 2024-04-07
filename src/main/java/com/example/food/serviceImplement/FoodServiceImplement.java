@@ -54,6 +54,7 @@ public class FoodServiceImplement implements FoodService {
             double price = request.getPrice();
             LocalDateTime postedAt = LocalDateTime.now();
             String foodImage = uploadImageToCloudinary(file);
+            int quantity = request.getQuantity();
             // check food exist or not by name
             var food = foodRepo.findFoodByFoodName(name).orElse(null);
             if (food == null) {
@@ -64,6 +65,7 @@ public class FoodServiceImplement implements FoodService {
                         .category(cate)
                         .description(description)
                         .dateAt(postedAt)
+                        .quantity(quantity)
                         .build();
                 foodRepo.save(food1);
                 return FoodResponse.builder()
@@ -97,11 +99,13 @@ public class FoodServiceImplement implements FoodService {
             String name = request.getFoodName();
             String description = request.getDescription();
             double price = request.getPrice();
+            int quantity = request.getQuantity();
             String foodImage = uploadImageToCloudinary(file);
             food.setFoodName(name);
             food.setFoodImage(foodImage);
             food.setCategory(cate);
             food.setPrice(price);
+            food.setQuantity(quantity);
             food.setDescription(description);
             foodRepo.save(food);
             return FoodResponse.builder()

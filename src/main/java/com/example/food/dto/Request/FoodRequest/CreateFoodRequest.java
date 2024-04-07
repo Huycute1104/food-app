@@ -17,6 +17,7 @@ public class CreateFoodRequest {
     private String description;
     private double price;
     private LocalDateTime dateAt;
+    private int quantity;
     private int category;
 
 }

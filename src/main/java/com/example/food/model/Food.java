@@ -33,6 +33,12 @@ public class Food {
     @Column(name = "Price", nullable = false)
     private double price;
 
+    @Column(name = "Quantity", nullable = false)
+    private int quantity;
+
+    @Column(name = "QuantitySold", columnDefinition = "int default 0")
+    private int quantitySold;
+
     @Column(name = "DateAt")
     private LocalDateTime dateAt;
 

@@ -16,5 +16,6 @@ public class UpdateFoodRequest {
     private String foodImage;
     private String description;
     private double price;
+    private int quantity;
     private int category;
 }
