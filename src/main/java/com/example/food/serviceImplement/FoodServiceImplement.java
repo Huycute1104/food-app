@@ -66,6 +66,7 @@ public class FoodServiceImplement implements FoodService {
                         .description(description)
                         .dateAt(postedAt)
                         .quantity(quantity)
+                        .foodStatus(true)
                         .build();
                 foodRepo.save(food1);
                 return FoodResponse.builder()

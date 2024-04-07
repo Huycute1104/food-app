@@ -39,6 +39,9 @@ public class Food {
     @Column(name = "QuantitySold", columnDefinition = "int default 0")
     private int quantitySold;
 
+    @Column(name = "FoodStatus")
+    private boolean foodStatus;
+
     @Column(name = "DateAt")
     private LocalDateTime dateAt;
 
