@@ -12,6 +12,9 @@ import com.example.food.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CartServiceImplement implements CartService {
     @Autowired
@@ -116,6 +119,17 @@ public class CartServiceImplement implements CartService {
                     .status("Food deleted successfully")
                     .cart(null)
                     .build();
+        }
+    }
+
+    @Override
+    public List<Cart> getCartByUser(int userId) {
+        var user = userRepo.findUserByUsersID(userId).orElse(null);
+        if(user != null){
+            return cartRepo.findByUser(user);
+        }
+        else {
+            return new ArrayList<>();
         }
     }
 }

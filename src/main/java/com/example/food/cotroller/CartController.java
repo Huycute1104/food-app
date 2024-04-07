@@ -5,11 +5,15 @@ import com.example.food.dto.Request.CartRequest.UpdateCartRequest;
 import com.example.food.dto.Request.CategoryRequest.CreateCategoryRequest;
 import com.example.food.dto.Response.CartResponse.CartResponse;
 import com.example.food.dto.Response.CategoryResponse.CategoryResponse;
+import com.example.food.model.Cart;
+import com.example.food.model.Food;
 import com.example.food.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/cart")
@@ -36,4 +40,10 @@ public class CartController {
         CartResponse response = cartService.deleteCartItem(id);
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/{id}")
+//    @PreAuthorize("hasAuthority('admin:read')")
+    public List<Cart> getCartByUser(@PathVariable int id) {
+        return cartService.getCartByUser(id);
+    }
+
 }
