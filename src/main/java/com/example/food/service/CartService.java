@@ -7,4 +7,5 @@ import com.example.food.dto.Response.CartResponse.CartResponse;
 public interface CartService {
     public CartResponse addToCart(AddToCartRequest request);
     public CartResponse updateCart(int cartId,UpdateCartRequest request);
+    public CartResponse deleteCartItem(int cartId);
 }

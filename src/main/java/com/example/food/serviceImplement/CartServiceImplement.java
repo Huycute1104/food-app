@@ -3,6 +3,7 @@ package com.example.food.serviceImplement;
 import com.example.food.dto.Request.CartRequest.AddToCartRequest;
 import com.example.food.dto.Request.CartRequest.UpdateCartRequest;
 import com.example.food.dto.Response.CartResponse.CartResponse;
+import com.example.food.dto.Response.CategoryResponse.CategoryResponse;
 import com.example.food.model.Cart;
 import com.example.food.repository.CartRepo;
 import com.example.food.repository.FoodRepo;
@@ -96,6 +97,23 @@ public class CartServiceImplement implements CartService {
         }else {
             return CartResponse.builder()
                     .status("Can not found cart item")
+                    .cart(null)
+                    .build();
+        }
+    }
+
+    @Override
+    public CartResponse deleteCartItem(int cartId) {
+        var cart = cartRepo.findCartByCartID(cartId).orElse(null);
+        if (cart == null) {
+            return CartResponse.builder()
+                    .status("Food not found")
+                    .cart(null)
+                    .build();
+        }else{
+            cartRepo.delete(cart);
+            return CartResponse.builder()
+                    .status("Food deleted successfully")
                     .cart(null)
                     .build();
         }
