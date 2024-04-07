@@ -4,7 +4,9 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.food.auth.AuthenticationService;
 import com.example.food.auth.RegisterRequest;
+import com.example.food.dto.Request.CategoryRequest.CreateCategoryRequest;
 import com.example.food.enums.Role;
+import com.example.food.service.CategoryService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -35,7 +37,8 @@ public class FoodApplication {
 	}
 	@Bean
 	public CommandLineRunner commandLineRunner(
-			AuthenticationService service
+			AuthenticationService service,
+			CategoryService categoryService
 	) {
 		return args -> {
 			//Admin
@@ -80,6 +83,21 @@ public class FoodApplication {
 					.role(CUSTOMER)
 					.build();
 			service.register(customer2);
+
+			var category = CreateCategoryRequest.builder()
+					.categoryName("Drink")
+					.build();
+			categoryService.createCategory(category);
+
+			var category1 = CreateCategoryRequest.builder()
+					.categoryName("Seafood")
+					.build();
+			categoryService.createCategory(category1);
+
+			var category2 = CreateCategoryRequest.builder()
+					.categoryName("Snacks")
+					.build();
+			categoryService.createCategory(category2);
 
 		};
 	}
