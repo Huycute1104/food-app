@@ -1,6 +1,7 @@
 package com.example.food.serviceImplement;
 
 import com.example.food.dto.Request.CartRequest.AddToCartRequest;
+import com.example.food.dto.Request.CartRequest.UpdateCartRequest;
 import com.example.food.dto.Response.CartResponse.CartResponse;
 import com.example.food.model.Cart;
 import com.example.food.repository.CartRepo;
@@ -63,6 +64,38 @@ public class CartServiceImplement implements CartService {
         } else {
             return CartResponse.builder()
                     .status("Customer not found")
+                    .cart(null)
+                    .build();
+        }
+    }
+
+    @Override
+    public CartResponse updateCart(int cartId,UpdateCartRequest request) {
+        int quantity = request.getQuantity();
+        if(quantity<0){
+            return CartResponse.builder()
+                    .status("Value invalid")
+                    .cart(null)
+                    .build();
+        }
+        var cart = cartRepo.findCartByCartID(cartId).orElse(null);
+        if(cart != null){
+            if(cart.getFood().getQuantity()>=quantity){
+                cart.setQuantity(quantity);
+                cartRepo.save(cart);
+                return CartResponse.builder()
+                        .status("Update cart successfully")
+                        .cart(cart)
+                        .build();
+            }else {
+                return CartResponse.builder()
+                        .status("Quantity has been exceeded")
+                        .cart(null)
+                        .build();
+            }
+        }else {
+            return CartResponse.builder()
+                    .status("Can not found cart item")
                     .cart(null)
                     .build();
         }
