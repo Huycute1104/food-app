@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface OrderService {
     public List<Order> getAllOrder();
+    public List<Order> getOrderOfUser(int customerId);
 }

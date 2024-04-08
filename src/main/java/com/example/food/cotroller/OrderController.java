@@ -1,11 +1,13 @@
 package com.example.food.cotroller;
 
+import com.example.food.model.Cart;
 import com.example.food.model.Order;
 import com.example.food.model.User;
 import com.example.food.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +23,11 @@ public class OrderController {
     //    @PreAuthorize("hasAuthority('admin:read')")
     public List<Order> getAllUsers() {
         return orderService.getAllOrder();
+    }
+
+    @GetMapping("/{id}")
+//    @PreAuthorize("hasAuthority('admin:read')")
+    public List<Order> getOrderByUser(@PathVariable int id) {
+        return orderService.getOrderOfUser(id);
     }
 }
