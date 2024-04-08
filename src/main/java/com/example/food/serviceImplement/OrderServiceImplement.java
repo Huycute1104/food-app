@@ -2,6 +2,7 @@ package com.example.food.serviceImplement;
 
 import com.example.food.dto.Request.OrderRequest.CreateOrderRequest;
 import com.example.food.dto.Response.OrderResponse.OrderResponse;
+import com.example.food.model.Cart;
 import com.example.food.model.Order;
 import com.example.food.repository.CartRepo;
 import com.example.food.repository.OrderRepo;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class OrderServiceImplement implements OrderService {
     @Autowired
@@ -22,6 +24,7 @@ public class OrderServiceImplement implements OrderService {
     private UserRepo userRepo;
     @Autowired
     private CartRepo cartRepo;
+
     @Override
     public List<Order> getAllOrder() {
         return orderRepo.findAll();
@@ -30,10 +33,9 @@ public class OrderServiceImplement implements OrderService {
     @Override
     public List<Order> getOrderOfUser(int customerId) {
         var user = userRepo.findUserByUsersID(customerId).orElse(null);
-        if(user != null){
+        if (user != null) {
             return orderRepo.findOrderByUser(user);
-        }
-        else {
+        } else {
             return new ArrayList<>();
         }
     }
@@ -44,11 +46,40 @@ public class OrderServiceImplement implements OrderService {
         double total = request.getTotal();
         LocalDateTime dateTime = LocalDateTime.now();
         var user = userRepo.findUserByUsersID(userId).orElse(null);
-        if( user != null){
-//            double balance = user.get();
-        }else{
-
+        if (user != null) {
+            double balance = user.getAccountBalance();
+            if (balance >= total) {
+                user.setAccountBalance(user.getAccountBalance() - total);
+                List<Cart> cartItems = cartRepo.findByUser(user);
+                if (!cartItems.isEmpty()) {
+                    Order order = Order.builder()
+                            .orderDate(dateTime)
+                            .total(total)
+                            .user(user)
+                            .build();
+                    orderRepo.save(order);
+                    userRepo.save(user);
+                    return OrderResponse.builder()
+                            .status("Create order successful")
+                            .order(order)
+                            .build();
+                } else {
+                    return OrderResponse.builder()
+                            .status("Create fail")
+                            .order(null)
+                            .build();
+                }
+            } else {
+                return OrderResponse.builder()
+                        .status("Your balance is not enough")
+                        .order(null)
+                        .build();
+            }
+        } else {
+            return OrderResponse.builder()
+                    .status("User not found")
+                    .order(null)
+                    .build();
         }
-        return null;
     }
 }
