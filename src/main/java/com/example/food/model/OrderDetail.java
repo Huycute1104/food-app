@@ -23,7 +23,7 @@ public class OrderDetail {
     private Food food;
 
     @Column(name = "Price")
-    private Double price;
+    private double price;
 
     @Column(name = "Quantity", nullable = false)
     private int quantity;

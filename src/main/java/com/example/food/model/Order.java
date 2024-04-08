@@ -24,7 +24,7 @@ public class Order {
     private LocalDateTime orderDate;
 
     @Column(name = "Total")
-    private Double total;
+    private double total;
 
     @ManyToOne
     @JoinColumn(name = "UsersID")
