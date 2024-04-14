@@ -10,5 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateOrderDetailRequest {
+    private int foodId;
+    private double price;
+    private int quantity;
+    private  int orderId;
 
 }

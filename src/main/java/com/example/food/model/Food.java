@@ -36,7 +36,7 @@ public class Food {
     @Column(name = "Quantity", nullable = false)
     private int quantity;
 
-    @Column(name = "QuantitySold", columnDefinition = "int default 0")
+    @Column(name = "QuantitySold")
     private int quantitySold;
 
     @Column(name = "FoodStatus")
