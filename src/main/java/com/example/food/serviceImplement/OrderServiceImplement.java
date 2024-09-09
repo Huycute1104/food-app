@@ -34,7 +34,7 @@ public class OrderServiceImplement implements OrderService {
     public List<Order> getOrderOfUser(int customerId) {
         var user = userRepo.findUserByUsersID(customerId).orElse(null);
         if (user != null) {
-            return orderRepo.findOrderByUser(user);
+            return orderRepo.findOrderByCustomer(user);
         } else {
             return new ArrayList<>();
         }
@@ -55,7 +55,7 @@ public class OrderServiceImplement implements OrderService {
                     Order order = Order.builder()
                             .orderDate(dateTime)
                             .total(total)
-                            .user(user)
+                            .customer(user)
                             .build();
                     orderRepo.save(order);
                     userRepo.save(user);

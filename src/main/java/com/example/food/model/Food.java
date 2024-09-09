@@ -24,10 +24,10 @@ public class Food {
     @Column(name = "FoodName", length = 20,unique = true)
     private String foodName;
 
-     @Column(name = "FoodImage", length = Integer.MAX_VALUE)
-        private String foodImage;
+    @Column(name = "FoodImage", length = Integer.MAX_VALUE)
+    private String foodImage;
 
-     @Column(name = "Description", length = 500)
+    @Column(name = "Description", length = 500)
     private String description;
 
     @Column(name = "Price", nullable = false)

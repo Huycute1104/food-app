@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrderRepo extends JpaRepository<Order,Integer> {
-    List<Order> findOrderByUser(User user);
+    List<Order> findOrderByCustomer(User user);
     Optional<Order> findOrderByOrderID(int orderId);
 }

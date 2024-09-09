@@ -1,12 +1,13 @@
 package com.example.food.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "Orders")
@@ -26,7 +27,24 @@ public class Order {
     @Column(name = "Total")
     private double total;
 
-    @ManyToOne
-    @JoinColumn(name = "UsersID")
-    private User user;
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "CustomerID", nullable = true)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private User customer;
+
+    private int orderCode;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JsonIgnore
+    private Set<OrderDetail> orderDetails;
+
+    @ManyToOne(cascade = CascadeType.MERGE, optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "VoucherID", nullable = true)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private Voucher voucher;
 }

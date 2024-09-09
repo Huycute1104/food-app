@@ -32,7 +32,7 @@ public class OrderDetailServiceImplement implements OrderDetailService {
         int orderId = request.getOrderId();
         var order = orderRepo.findOrderByOrderID(orderId).orElse(null);
         if (order != null) {
-            int userId = order.getUser().getUsersID();
+            int userId = order.getCustomer().getUsersID();
             var user = userRepo.findUserByUsersID(userId).orElse(null);
             if (user != null) {
                 List<Cart> cartItems = cartRepo.findByUser(user);
@@ -50,7 +50,7 @@ public class OrderDetailServiceImplement implements OrderDetailService {
                         food.setQuantitySold(food.getQuantitySold() + cartItem.getQuantity());
                         foodRepo.save(food);
                         cartRepo.delete(cartItem);
-                        User user1 = order.getUser();
+                        User user1 = order.getCustomer();
                         user1.setAccountBalance(user1.getAccountBalance() - total);
                         userRepo.save(user1);
                     }

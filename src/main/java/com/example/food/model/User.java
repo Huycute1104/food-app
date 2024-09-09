@@ -2,6 +2,7 @@ package com.example.food.model;
 
 import com.example.food.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,6 +51,10 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy ="user")
     private List<Token> tokens;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Order> orders;
 
     // user detail
     @Override

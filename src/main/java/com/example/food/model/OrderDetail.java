@@ -1,10 +1,8 @@
 package com.example.food.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "Orderdetail")
@@ -28,7 +26,10 @@ public class OrderDetail {
     @Column(name = "Quantity", nullable = false)
     private int quantity;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "OrderID")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
     private Order order;
 }
