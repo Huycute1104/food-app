@@ -1,4 +1,4 @@
-package com.example.food.ServiceImplement;
+package com.example.food.Service.Service;
 
 import com.example.food.ViewModel.Request.OrderDetailRequest.CreateOrderDetailRequest;
 import com.example.food.ViewModel.Response.OrderDetailResponse.OrderDetailResponse;
@@ -7,14 +7,14 @@ import com.example.food.Model.Food;
 import com.example.food.Model.OrderDetail;
 import com.example.food.Model.User;
 import com.example.food.Repository.*;
-import com.example.food.Service.OrderDetailService;
+import com.example.food.Service.IService.IOrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class OrderDetailServiceImplement implements OrderDetailService {
+public class OrderDetailService implements IOrderDetailService {
 
     @Autowired
     private OrderDetailRepo orderDetailRepo;

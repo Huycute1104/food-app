@@ -4,7 +4,7 @@ import com.example.food.ViewModel.Request.FoodRequest.CreateFoodRequest;
 import com.example.food.ViewModel.Request.FoodRequest.UpdateFoodRequest;
 import com.example.food.ViewModel.Response.FoodResponse.FoodResponse;
 import com.example.food.Model.Food;
-import com.example.food.Service.FoodService;
+import com.example.food.Service.IService.IFoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +20,17 @@ import java.util.Optional;
 public class FoodController {
 
     @Autowired
-    private FoodService foodService;
+    private IFoodService IFoodService;
 
     @GetMapping("")
 //    @PreAuthorize("hasAuthority('admin:read')")
     public List<Food> getAllUsers() {
-        return foodService.getAll();
+        return IFoodService.getAll();
     }
     @GetMapping("{id}")
 //    @PreAuthorize("hasAuthority('admin:read')")
     public Optional<Food> getUserById(@PathVariable int id) {
-        return foodService.getFoodByID(id);
+        return IFoodService.getFoodByID(id);
     }
     @PostMapping("")
     //    @PreAuthorize("hasAuthority('admin:create')")
@@ -48,7 +48,7 @@ public class FoodController {
                 .category(category)
                 .quantity(quantity)
                 .build();
-        FoodResponse response = foodService.createFood(food,file);
+        FoodResponse response = IFoodService.createFood(food,file);
         return ResponseEntity.ok(response);
     }
 
@@ -69,13 +69,13 @@ public class FoodController {
                 .category(category)
                 .quantity(quantity)
                 .build();
-        FoodResponse response = foodService.updateFood(id,food,file);
+        FoodResponse response = IFoodService.updateFood(id,food,file);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<FoodResponse> deleteFood(@PathVariable int id) {
-        FoodResponse response = foodService.deleteFood(id);
+        FoodResponse response = IFoodService.deleteFood(id);
         return ResponseEntity.ok(response);
     }
 }

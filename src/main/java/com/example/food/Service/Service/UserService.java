@@ -1,4 +1,4 @@
-package com.example.food.ServiceImplement;
+package com.example.food.Service.Service;
 
 import com.example.food.ViewModel.Request.UserRequest.UpdatePasswordRequest;
 import com.example.food.ViewModel.Request.UserRequest.UpdateUserRequest;
@@ -6,7 +6,7 @@ import com.example.food.ViewModel.Response.UserResponse.UserResponse;
 import com.example.food.Enums.Role;
 import com.example.food.Model.User;
 import com.example.food.Repository.UserRepo;
-import com.example.food.Service.UserService;
+import com.example.food.Service.IService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImplement implements UserService {
+public class UserService implements IUserService {
 
     @Autowired
     private UserRepo userRepo;

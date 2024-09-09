@@ -1,6 +1,6 @@
 package com.example.food.Job;
 
-import com.example.food.ServiceImplement.CaculatePointsService;
+import com.example.food.Service.Service.CaculatePointsService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

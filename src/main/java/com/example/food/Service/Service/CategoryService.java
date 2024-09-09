@@ -1,10 +1,10 @@
-package com.example.food.ServiceImplement;
+package com.example.food.Service.Service;
 
+import com.example.food.Service.IService.ICategoryService;
 import com.example.food.ViewModel.Request.CategoryRequest.CreateCategoryRequest;
 import com.example.food.ViewModel.Response.CategoryResponse.CategoryResponse;
 import com.example.food.Model.Category;
 import com.example.food.Repository.CategoryRepo;
-import com.example.food.Service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoryServiceImplement implements CategoryService {
+public class CategoryService implements ICategoryService {
     @Autowired
     private CategoryRepo categoryRepo;
 

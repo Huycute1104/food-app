@@ -1,6 +1,6 @@
-package com.example.food.ServiceImplement;
+package com.example.food.Service.Service;
 
-import com.example.food.Service.ICaculatePointsService;
+import com.example.food.Service.IService.ICaculatePointsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

@@ -1,14 +1,14 @@
-package com.example.food.ServiceImplement;
+package com.example.food.Service.Service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.food.Service.IService.IFoodService;
 import com.example.food.ViewModel.Request.FoodRequest.CreateFoodRequest;
 import com.example.food.ViewModel.Request.FoodRequest.UpdateFoodRequest;
 import com.example.food.ViewModel.Response.FoodResponse.FoodResponse;
 import com.example.food.Model.Food;
 import com.example.food.Repository.CategoryRepo;
 import com.example.food.Repository.FoodRepo;
-import com.example.food.Service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class FoodServiceImplement implements FoodService {
+public class FoodService implements IFoodService {
     @Autowired
     private FoodRepo foodRepo;
     @Autowired

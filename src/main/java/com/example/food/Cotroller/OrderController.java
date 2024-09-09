@@ -3,7 +3,7 @@ package com.example.food.Cotroller;
 import com.example.food.ViewModel.Request.OrderRequest.CreateOrderRequest;
 import com.example.food.ViewModel.Response.OrderResponse.OrderResponse;
 import com.example.food.Model.Order;
-import com.example.food.Service.OrderService;
+import com.example.food.Service.IService.IOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderController {
     @Autowired
-    private OrderService orderService;
+    private IOrderService orderService;
     @GetMapping("")
     //    @PreAuthorize("hasAuthority('admin:read')")
     public List<Order> getAllUsers() {

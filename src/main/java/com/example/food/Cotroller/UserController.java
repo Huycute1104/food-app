@@ -4,7 +4,7 @@ import com.example.food.ViewModel.Request.UserRequest.UpdatePasswordRequest;
 import com.example.food.ViewModel.Request.UserRequest.UpdateUserRequest;
 import com.example.food.ViewModel.Response.UserResponse.UserResponse;
 import com.example.food.Model.User;
-import com.example.food.Service.UserService;
+import com.example.food.Service.IService.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @GetMapping("")
 //    @PreAuthorize("hasAuthority('admin:read')")

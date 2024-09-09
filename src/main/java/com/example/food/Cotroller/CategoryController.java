@@ -3,7 +3,7 @@ package com.example.food.Cotroller;
 import com.example.food.ViewModel.Request.CategoryRequest.CreateCategoryRequest;
 import com.example.food.ViewModel.Response.CategoryResponse.CategoryResponse;
 import com.example.food.Model.Category;
-import com.example.food.Service.CategoryService;
+import com.example.food.Service.IService.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CategoryController {
     @Autowired
-    private CategoryService categoryService;
+    private ICategoryService categoryService;
 
     @GetMapping("")
 //    @PreAuthorize("hasAuthority('admin:read')")

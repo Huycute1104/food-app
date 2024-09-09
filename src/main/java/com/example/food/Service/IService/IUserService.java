@@ -1,4 +1,4 @@
-package com.example.food.Service;
+package com.example.food.Service.IService;
 
 import com.example.food.ViewModel.Request.UserRequest.UpdatePasswordRequest;
 import com.example.food.ViewModel.Request.UserRequest.UpdateUserRequest;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public interface UserService {
+public interface IUserService {
     public UserResponse banUser(int userId);
     public UserResponse unbanUser(int userId);
     public UserResponse updateUser(int userId, UpdateUserRequest request );
