@@ -2,19 +2,11 @@ package com.example.food;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.example.food.auth.AuthenticationService;
-import com.example.food.auth.RegisterRequest;
-import com.example.food.dto.Request.CategoryRequest.CreateCategoryRequest;
-import com.example.food.enums.Role;
-import com.example.food.service.CategoryService;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import static com.example.food.enums.Role.*;
 
 @SpringBootApplication
 public class FoodApplication {
